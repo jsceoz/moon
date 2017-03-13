@@ -1,0 +1,90 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/*login page*/
+
+.input-wrapper {
+  width: 70%;
+  max-width: 300px;
+  margin: 100px auto 0 auto;
+}
+
+.input-item-wrapper {
+  height: 60px;
+}
+
+.btn-wrapper {
+  margin-top: 20px;
+}
+
+footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  text-align: center;
+  font-size: 12px;
+  color: #666666;
+}
+
+/*select group page*/
+.select-group-list-wrapper {
+  width: 70%;
+  margin: 50px auto;
+}
+
+.group-btn-wrapper {
+  margin: 30px auto;
+}
+
+
+/*group list page*/
+.card-wrapper {
+  width: 80%;
+  max-width: 300px;
+  margin: 30px auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
