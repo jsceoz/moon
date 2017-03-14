@@ -23,7 +23,7 @@ export default class SelectGroupPage extends React.Component {
     componentWillMount() {
         let self = this;
 
-        let activity_id = 1;
+        let activity_id = window.activity_id;
         let api_path = 'vote/group/?activity=' + activity_id;
         
         fetch(window.api_url + api_path).then(function (response) {
@@ -40,6 +40,7 @@ export default class SelectGroupPage extends React.Component {
                 <AppBar
                     title="选择组别"
                     iconElementLeft={<IconButton onClick={() => history.back()}><ArrowBack/></IconButton>}
+                    titleStyle={{fontSize: 16}}
                 />
 
                 <div className="select-group-list-wrapper">

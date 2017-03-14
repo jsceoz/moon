@@ -20,22 +20,24 @@ export default class Main extends React.Component {
     }
 
     componentDidMount() {
-        let activity_id = this.props.params.activity_id;
+        let activity_uuid = this.props.params.activity_uuid;
 
         let self = this;
 
-        let api_path = "vote/activity/" + activity_id + '/';
+        let api_path = "vote/activity/?uuid=" + activity_uuid;
 
         fetch(window.api_url + api_path).then(function (response) {
             response.json().then(function (data) {
-                self.setState({activity: data})
+                self.setState({activity: data.results[0]});
+                document.title = data.results[0].name;
+                window.activity_id = data.results[0].id
             })
         })
     }
 
     auth = () => {
         if (!localStorage.whusu_token) {
-            window.location = '#/login'
+            window.location = '#/login/' + this.props.params.activity_uuid
         }
     };
 
@@ -45,6 +47,7 @@ export default class Main extends React.Component {
                 <AppBar
                     title={this.state.activity.name}
                     iconElementLeft={<IconButton onClick={() => history.back()}><ArrowBack/></IconButton>}
+                    titleStyle={{fontSize: 16}}
                 />
 
                 <div className="content-wrapper">

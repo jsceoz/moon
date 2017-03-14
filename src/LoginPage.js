@@ -76,7 +76,7 @@ export default class LoginPage extends React.Component {
             response.json().then(function (data) {
                 localStorage.whusu_token = data.token;
                 if(localStorage.whusu_token) {
-                    window.location = '#/home/1'
+                    window.location = '#/home/' + self.props.params.activity_uuid
                 }
             })
         })
@@ -96,6 +96,7 @@ export default class LoginPage extends React.Component {
                 <AppBar
                     title="身份验证"
                     showMenuIconButton={false}
+                    titleStyle={{fontSize: 16}}
                 />
                 <div className="input-wrapper">
                     <div className="input-item-wrapper">

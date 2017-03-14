@@ -69,15 +69,15 @@ export default class ItemContentPage extends React.Component {
                 <AppBar
                     title={this.state.item.name}
                     iconElementLeft={<IconButton onClick={() => history.back()}><ArrowBack/></IconButton>}
+                    titleStyle={{fontSize: 16}}
                 />
 
-                <div className="content-wrapper">
-                    {this.state.item.content}
+                <div className="content-wrapper" dangerouslySetInnerHTML={{__html: this.state.item.content}}>
                 </div>
 
                 <div className="vote-btn-wrapper">
                     <RaisedButton
-                        label="投上一票"
+                        label="投票"
                         primary={true}
                         onClick={this.vote}
                     />

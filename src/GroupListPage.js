@@ -43,6 +43,7 @@ export default class GroupListPage extends React.Component {
                 <AppBar
                     title={this.state.group_name}
                     iconElementLeft={<IconButton onClick={() => history.back()}><ArrowBack/></IconButton>}
+                    titleStyle={{fontSize: 16}}
                 />
 
                 <div className="card-wrapper">

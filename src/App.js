@@ -23,6 +23,9 @@ const muiTheme = getMuiTheme({
         primary1Color: indigo500,
         primary2Color: indigo700,
     },
+    appBar: {
+        height: 50,
+    }
 });
 
 class App extends Component {
@@ -30,8 +33,8 @@ class App extends Component {
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
                 <Router history={hashHistory}>
-                    <Route path="/home/:activity_id" component={MainPage}/>
-                    <Route path="/login" component={LoginPage}/>
+                    <Route path="/home/:activity_uuid" component={MainPage}/>
+                    <Route path="/login/:activity_uuid" component={LoginPage}/>
                     <Route path="/select-group" component={SelectGroupPage}/>
                     <Route path="/group-list/:group_id" component={GroupListPage}/>
                     <Route path="/item-content/:item_id" component={ItemContent}/>
