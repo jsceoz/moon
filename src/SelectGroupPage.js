@@ -3,23 +3,35 @@
  */
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
-import AppBar from 'material-ui/AppBar'
+import AppBar from 'material-ui/AppBar';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import IconButton from 'material-ui/IconButton';
+import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 
 
 export default class SelectGroupPage extends React.Component {
-    static propTypes = {
-        activity_id: React.PropTypes.number
-    };
 
     constructor(props) {
         super(props);
         this.state = {
-
+            open: true,
+            group_arr: []
         }
     }
 
     componentWillMount() {
+        let self = this;
 
+        let activity_id = 1;
+        let api_path = 'vote/group/?activity=' + activity_id;
+        
+        fetch(window.api_url + api_path).then(function (response) {
+            response.json().then(function (data) {
+
+                self.setState({group_arr: data.results})
+            })
+        })
     }
 
     render() {
@@ -27,18 +39,21 @@ export default class SelectGroupPage extends React.Component {
             <div className="select-group-page">
                 <AppBar
                     title="选择组别"
+                    iconElementLeft={<IconButton onClick={() => history.back()}><ArrowBack/></IconButton>}
                 />
 
                 <div className="select-group-list-wrapper">
-                    <div className="group-btn-wrapper">
-                        <RaisedButton label="男子组" fullWidth={true} primary={true}/>
-                    </div>
-                    <div className="group-btn-wrapper">
-                        <RaisedButton label="女子组" fullWidth={true} primary={true}/>
-                    </div>
-                    <div className="group-btn-wrapper">
-                        <RaisedButton label="团体组" fullWidth={true} primary={true}/>
-                    </div>
+                    {this.state.group_arr.map(
+                        (item) => (
+                            <div className="group-btn-wrapper" key={item.id}>
+                                <RaisedButton
+                                    label={item.name}
+                                    fullWidth={true}
+                                    primary={true}
+                                    href={"#/group-list/" + item.id}/>
+                            </div>
+                        )
+                    )}
 
 
                 </div>

@@ -4,14 +4,17 @@
 import React from 'react'
 import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton'
+import RaisedButton from 'material-ui/RaisedButton';
+import Snackbar from 'material-ui/Snackbar';
 
 export default class LoginPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             sid: '',
-            password: ''
+            password: '',
+            open: false,
+            msg: ''
         };
 
         this.handleInput = this.handleInput.bind(this)
@@ -25,26 +28,74 @@ export default class LoginPage extends React.Component {
         })
     }
 
-    handleLogin() {
-        let api_path = 'user/login';
-        let data = {
-            school_id: this.state.sid,
-            password: this.state.password
-        };
+    handleCheckAndLogin = () => {
+        let self = this;
+
+        let check_api_path = 'user/check_whu_student/';
+
+        this.setState({open: true, msg: '正在验证'});
+
+        fetch(window.api_url + check_api_path, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                sid: self.state.sid,
+                password: self.state.password
+            })
+        }).then(function (response) {
+            response.json().then(function (data) {
+
+                if(data.result === true) {
+                    self.login()
+                }
+                else {
+                    self.setState({msg: '验证失败'})
+                }
+            })
+        })
+    };
+
+    login = () => {
+        this.setState({msg: '验证成功'});
+
+        let self = this;
+        let api_path = 'user/login_or_register/';
         
         fetch(window.api_url + api_path, {
-            method: "POST",
-            body: JSON.stringify(data)
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                sid: self.state.sid,
+                password: self.state.password
+            })
         }).then(function (response) {
-
+            response.json().then(function (data) {
+                localStorage.whusu_token = data.token;
+                if(localStorage.whusu_token) {
+                    window.location = '#/home/1'
+                }
+            })
         })
-    }
+        
+
+    };
+
+    handleRequestClose = () => {
+        this.setState({
+            open: false,
+        });
+    };
 
     render() {
         return (
             <div className="login-page">
                 <AppBar
                     title="身份验证"
+                    showMenuIconButton={false}
                 />
                 <div className="input-wrapper">
                     <div className="input-item-wrapper">
@@ -69,13 +120,19 @@ export default class LoginPage extends React.Component {
                             label="开始验证"
                             fullWidth={true}
                             primary={true}
-                            onClick={this.handleLogin}
+                            onClick={this.handleCheckAndLogin}
                         />
                     </div>
                 </div>
                 <footer>
                     <p>© 2017 武汉大学学生会</p>
                 </footer>
+                <Snackbar
+                    open={this.state.open}
+                    message={this.state.msg}
+                    autoHideDuration={4000}
+                    onRequestClose={this.handleRequestClose}
+                />
             </div>
         )
     }

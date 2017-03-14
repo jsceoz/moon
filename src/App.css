@@ -48,6 +48,17 @@ footer {
   color: #666666;
 }
 
+/*main page*/
+
+.enter-btn-wrapper {
+  width: 100px;
+  margin: 30px auto;
+}
+
+.content-wrapper {
+  padding: 30px;
+}
+
 /*select group page*/
 .select-group-list-wrapper {
   width: 70%;
@@ -63,6 +74,12 @@ footer {
 .card-wrapper {
   width: 80%;
   max-width: 300px;
+  margin: 30px auto;
+}
+
+/*vote btn wrapper*/
+.vote-btn-wrapper {
+  width: 100px;
   margin: 30px auto;
 }
 
